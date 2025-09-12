@@ -1,0 +1,236 @@
+// script.js
+// Simple client-side activity log manager using localStorage.
+// KEY: activityLogs
+
+const STORAGE_KEY = "activityLogs";
+const ADMIN_PASS = "admin123"; // change or replace with proper auth for production
+
+// DOM
+const logForm = document.getElementById("logForm");
+const logsBody = document.getElementById("logsBody");
+const btnExport = document.getElementById("btnExport");
+const btnPrint = document.getElementById("btnPrint");
+const btnResetAll = document.getElementById("btnResetAll");
+const btnResetUser = document.getElementById("btnResetUser");
+const resetUserInput = document.getElementById("resetUserInput");
+const searchInput = document.getElementById("search");
+const filterUser = document.getElementById("filterUser");
+const fromDate = document.getElementById("fromDate");
+const toDate = document.getElementById("toDate");
+const btnClearFilters = document.getElementById("btnClearFilters");
+const btnSample = document.getElementById("btnSample");
+
+// Utility
+function nowISO(){
+  return new Date().toISOString();
+}
+function fmtLocal(iso){
+  const d = new Date(iso);
+  return d.toLocaleString();
+}
+function loadLogs(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  }catch(e){
+    console.error("Error parsing logs", e);
+    return [];
+  }
+}
+function saveLogs(logs){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+}
+
+// Sample logs on first load
+function ensureSampleLogs(){
+  const logs = loadLogs();
+  if(logs.length === 0){
+    const sample = [
+      {id: genId(), ts: nowISO(), user: "michael", action: "login", details: "Successful login", ip: "127.0.0.1"},
+      {id: genId(), ts: nowISO(), user: "admin", action: "view_report", details: "Opened monthly report", ip: "127.0.0.1"},
+      {id: genId(), ts: nowISO(), user: "jane", action: "create_invoice", details: "Invoice #1002", ip: "127.0.0.1"},
+    ];
+    saveLogs(sample);
+  }
+}
+
+// ID generator
+function genId(){
+  return "log_" + Math.random().toString(36).slice(2,10);
+}
+
+// Render table with filters/search
+function renderLogs(){
+  const logs = loadLogs();
+  const q = searchInput.value.trim().toLowerCase();
+  const fu = filterUser.value.trim().toLowerCase();
+  const from = fromDate.value ? new Date(fromDate.value) : null;
+  const to = toDate.value ? new Date(toDate.value) : null;
+
+  const filtered = logs.filter(l=>{
+    if(fu && l.user.toLowerCase() !== fu) return false;
+    const ts = new Date(l.ts);
+    if(from && ts < from) return false;
+    if(to){
+      // include whole day by setting end-of-day
+      const td = new Date(to); td.setHours(23,59,59,999);
+      if(ts > td) return false;
+    }
+    if(q){
+      const hay = (l.user + " " + l.action + " " + l.details + " " + l.ip + " " + l.ts).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  logsBody.innerHTML = "";
+  if(filtered.length === 0){
+    logsBody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#6b7280;padding:12px">No logs found</td></tr>`;
+    return;
+  }
+
+  filtered.sort((a,b)=> new Date(b.ts) - new Date(a.ts));
+  for(const l of filtered){
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${fmtLocal(l.ts)}</td>
+      <td>${escapeHtml(l.user)}</td>
+      <td>${escapeHtml(l.action)}</td>
+      <td>${escapeHtml(l.details || "")}</td>
+      <td>${escapeHtml(l.ip || "")}</td>
+      <td>
+        <div class="actions-btn">
+          <button class="small-btn" data-id="${l.id}" data-action="delete">Delete</button>
+        </div>
+      </td>
+    `;
+    logsBody.appendChild(tr);
+  }
+}
+
+// Safe text
+function escapeHtml(s){
+  return String(s||"").replace(/[&<>"'`]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[c]));
+}
+
+// Add log
+logForm.addEventListener("submit", e=>{
+  e.preventDefault();
+  const user = document.getElementById("user").value.trim();
+  const action = document.getElementById("action").value.trim();
+  const details = document.getElementById("details").value.trim();
+  if(!user || !action) return alert("User and action required.");
+  const logs = loadLogs();
+  logs.push({
+    id: genId(),
+    ts: nowISO(),
+    user,
+    action,
+    details,
+    ip: "0.0.0.0" // placeholder; replace with server-side value if available
+  });
+  saveLogs(logs);
+  logForm.reset();
+  renderLogs();
+});
+
+// Insert sample logs button
+btnSample.addEventListener("click", ()=>{
+  const logs = loadLogs();
+  for(let i=0;i<5;i++){
+    logs.push({
+      id: genId(),
+      ts: new Date(Date.now() - i*60000).toISOString(),
+      user: ["alex","michael","jane","admin"][i%4],
+      action: ["view","edit","delete","login"][i%4],
+      details: `Sample activity ${i+1}`,
+      ip: "127.0.0.1"
+    });
+  }
+  saveLogs(logs);
+  renderLogs();
+});
+
+// Row actions (delete)
+logsBody.addEventListener("click", e=>{
+  const btn = e.target.closest("button");
+  if(!btn) return;
+  const id = btn.dataset.id;
+  const action = btn.dataset.action;
+  if(action === "delete"){
+    if(!confirm("Delete this log entry?")) return;
+    let logs = loadLogs();
+    logs = logs.filter(l=>l.id !== id);
+    saveLogs(logs);
+    renderLogs();
+  }
+});
+
+// Reset logs for a user
+btnResetUser.addEventListener("click", ()=>{
+  const username = resetUserInput.value.trim();
+  if(!username) return alert("Enter a username to reset logs for.");
+  if(!confirm(`Are you sure you want to remove all logs for "${username}"?`)) return;
+  let logs = loadLogs();
+  const before = logs.length;
+  logs = logs.filter(l=>l.user.toLowerCase() !== username.toLowerCase());
+  saveLogs(logs);
+  alert(`Removed ${before - logs.length} logs for user "${username}".`);
+  resetUserInput.value = "";
+  renderLogs();
+});
+
+// Admin reset all logs (simple password prompt)
+btnResetAll.addEventListener("click", ()=>{
+  const pass = prompt("Admin password to reset ALL logs:");
+  if(pass === null) return;
+  if(pass !== ADMIN_PASS) return alert("Incorrect password.");
+  if(!confirm("This will permanently delete ALL logs. Continue?")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  alert("All logs removed.");
+  ensureSampleLogs();
+  renderLogs();
+});
+
+// Export CSV
+btnExport.addEventListener("click", ()=>{
+  const logs = loadLogs();
+  if(logs.length === 0) return alert("No logs to export.");
+  const headers = ["timestamp","user","action","details","ip"];
+  const rows = logs.map(l=>[
+    l.ts,
+    l.user,
+    l.action,
+    l.details ? l.details.replace(/\n/g," ") : "",
+    l.ip || ""
+  ]);
+  const csv = [headers.join(","), ...rows.map(r=>r.map(f=>`"${String(f).replace(/"/g,'""')}"`).join(","))].join("\n");
+  const blob = new Blob([csv], {type: "text/csv"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `activity_logs_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+});
+
+// Print
+btnPrint.addEventListener("click", ()=>{
+  window.print();
+});
+
+// Filters and search
+[searchInput, filterUser, fromDate, toDate].forEach(el => el.addEventListener("input", renderLogs));
+btnClearFilters.addEventListener("click", ()=>{
+  searchInput.value = "";
+  filterUser.value = "";
+  fromDate.value = "";
+  toDate.value = "";
+  renderLogs();
+});
+
+// init
+ensureSampleLogs();
+renderLogs();
