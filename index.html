@@ -1,246 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DV Ralph Consultancy Services</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michael Dolor Jr - Resume</title>
+
+<style>
+body{
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    background:#f4f6f9;
+    color:#333;
+}
+
+.container{
+    max-width:1000px;
+    margin:40px auto;
+    background:#fff;
+    display:flex;
+    box-shadow:0 5px 25px rgba(0,0,0,0.1);
+}
+
+.left{
+    width:35%;
+    background:#1f2d3d;
+    color:white;
+    padding:30px;
+}
+
+.right{
+    width:65%;
+    padding:40px;
+}
+
+h1{
+    margin:0;
+    font-size:28px;
+    letter-spacing:1px;
+}
+
+h2{
+    border-bottom:2px solid #ddd;
+    padding-bottom:5px;
+    margin-top:30px;
+    font-size:18px;
+    color:#1f2d3d;
+}
+
+.left h2{
+    color:#fff;
+    border-bottom:1px solid rgba(255,255,255,0.3);
+}
+
+.section{
+    margin-bottom:20px;
+}
+
+ul{
+    padding-left:18px;
+}
+
+.job{
+    margin-bottom:20px;
+}
+
+.job-title{
+    font-weight:bold;
+}
+
+.date{
+    font-size:13px;
+    color:gray;
+}
+
+.contact p{
+    margin:6px 0;
+    font-size:14px;
+}
+
+.skills li{
+    margin-bottom:6px;
+}
+
+.reference{
+    font-size:14px;
+}
+</style>
 </head>
+
 <body>
 
-<!-- Landing Page -->
-<!-- <header>
-  <h1>@</h1>
-  <button onclick="openModal('login-choice-modal')">Login</button>
- </header> -->
+<div class="container">
 
-<header>
-  <div class="logo-container">
-    <!-- Replace logo.png with your logo file -->
-    <img src="logo/DVR.png" alt="DV Ralph Logo">
-    <h1></h1>
-  </div>
-  <button onclick="openModal('login-choice-modal')">Login</button>
-</header>
+    <!-- LEFT SIDE -->
+    <div class="left">
+        <h1>Michael Dolor Jr.</h1>
+        <p><strong>Logistics Coordinator | Real Estate Agent</strong></p>
 
-<h4>DV Ralph Consultancy Services</h4>
+        <h2>Contact</h2>
+        <div class="contact">
+            <p>📞 +63-961-843-9871</p>
+            <p>✉ mikejrdolor@gmail.com</p>
+            <p>📍 Daet, Camarines Norte 4600</p>
+            <p>🌐 mikejrdolor.github.io/michaeljrdolor</p>
+        </div>
 
-<!-- Vision -->
-<section id="vision">
-  <div class="card">
-    <h2>Our Vision</h2>
-    <p>To be the most trusted consultancy firm, empowering businesses and individuals through professional and innovative solutions.</p>
-  </div>
-</section>
+        <h2>Skills</h2>
+        <ul class="skills">
+            <li>SAP Transaction Processing</li>
+            <li>Shipping Coordination</li>
+            <li>Import/Export Compliance</li>
+            <li>Order Processing & Inventory Reporting</li>
+            <li>Real Estate Sales & Negotiation</li>
+            <li>Web Development (PHP, MySQL, Java, JQuery, HTML, CSS)</li>
+            <li>Social Media Marketing</li>
+            <li>Customer Service & Client Relations</li>
+            <li>MS Office & Google Workspace</li>
+        </ul>
 
-<!-- Mission -->
-<section id="mission">
-  <div class="card">
-    <h2>Our Mission</h2>
-    <p>We are committed to delivering high-quality financial, tax, and business advisory services that drive growth, compliance, and long-term success for our clients.</p>
-  </div>
-</section>
+        <h2>Education</h2>
+        <p><strong>BS Computer Science</strong><br>
+        Mabini College of Daet<br>
+        1998 - 2002</p>
 
-<!-- About -->
-<section id="about">
-  <div class="card">
-    <h2>About Us</h2>
-    <p>DV Ralph Consultancy Services provides professional financial, tax, and business advisory services to help you manage and grow your business effectively. With years of experience, we pride ourselves on excellence, integrity, and personalized client care.</p>
-  </div>
-</section>
+        <p><strong>Nursing Aid</strong><br>
+        St. Augustine School of Nursing<br>
+        2005 - 2006</p>
 
-<!-- Services -->
-<section id="services">
-  <h2>Our Services</h2>
-  <div class="container services-list">
-    <div class="service"><i class="fas fa-book"></i><h3>Bookkeeping</h3></div>
-    <div class="service"><i class="fas fa-briefcase"></i><h3>Business Registration</h3></div>
-    <div class="service"><i class="fas fa-chart-line"></i><h3>Financial Reporting</h3></div>
-    <div class="service"><i class="fas fa-file-invoice-dollar"></i><h3>Tax Consultancy</h3></div>
-  </div>
-</section>
-
-<section id="about">
-  <h2>About Us</h2>
-  <p>DV Ralph Consultancy Services provides professional financial, tax, and business advisory services to help you manage and grow your business effectively.</p>
-  
- 
-</section>
-
-
-<!-- Contact -->
-<section id="contact">
-  <div class="card">
-    <h2>Contact Us</h2>
-    <p>📍 Address: 123 Business Street, Metro City</p>
-    <p>📞 Phone: +63 912 345 6789</p>
-    <p>📧 Email: info@dvralph.com</p>
-    <h3>Send Us an Inquiry</h3>
-     <form class="inquiry-form" action="https://formspree.io/f/mvgqlywq" method="POST">
-    <h2>📩  Inquiry</h2>
-
-    <label for="name">Full Name</label>
-    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
-
-    <label for="email">Email Address</label>
-    <input type="email" id="email" name="email" placeholder="Enter your email" required>
-
-    <label for="phone">Phone Number</label>
-    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
-
-    <label for="inquiry">Inquiry</label>
-    <select id="property" name="property">
-      <option value="Bookeeping">BooKeeping</option>
-      <option value="Bussiness Registration">Bussiness Registration</option>
-      <option value="Financial Reporting">Financial Reporting</option>
-      <option value="Tax Consultancy">Tax Consultancy</option>
-      <option value="Other">Other</option>
-    </select>
-
-    <label for="message">Your Message</label>
-    <textarea id="message" name="message" rows="4" placeholder="Type your inquiry here..." required></textarea>
-
-    <button type="submit">📨 Send Inquiry</button>
-  </form>
-
-  </div>
-</section>
-
-
-
-<footer>
-  <p>&copy; 2025 DV Ralph Consultancy Services</p>
-</footer>
-
-<!-- Login Choice Modal -->
-<div id="login-choice-modal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('login-choice-modal')">&times;</span>
-    <h2>Login As</h2>
-    <button onclick="switchModal('login-choice-modal','user-login-modal')">User</button>
-    <button onclick="switchModal('login-choice-modal','admin-login-modal')">Admin</button>
-  </div>
-</div>
-
-<!-- User Login Modal -->
-<div id="user-login-modal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('user-login-modal')">&times;</span>
-    <h2>User Login</h2>
-    <input id="user-username" placeholder="Username"><br>
-    <input id="user-password" type="password" placeholder="Password"><br>
-    <button onclick="loginUser()">Login</button>
-    <p id="user-login-error" style="color:red; display:none;">Invalid username or password</p>
-  </div>
-</div>
-
-<!-- Admin Login Modal -->
-<div id="admin-login-modal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('admin-login-modal')">&times;</span>
-    <h2>Admin Login</h2>
-    <input id="admin-username" placeholder="Admin Username"><br>
-    <input id="admin-password" type="password" placeholder="Password"><br>
-    <button onclick="loginAdmin()">Login</button>
-    <p id="admin-login-error" style="color:red; display:none;">Invalid admin credentials</p>
-  </div>
-</div>
-
-<!-- User Dashboard -->
-<div id="user-dashboard" class="dashboard">
-  <h2>Welcome, <span id="active-user"></span></h2>
-  <p>Last Login: <span id="last-login"></span></p>
-  <h3 id="user-assignment"></h3>
-
-  <!-- Integrated 8-Button Grid -->
-  <div class="button-grid" style="margin-top:20px;">
-    
-   <a href="https://www.sss.gov.ph/" target="_blank" class="btn">
-      <img src="logo/BIRlogo.png" alt="Bookkeeping Logo"> BIR
-   </a>
-
-   <a href="https://www.bir.gov.ph/ebirforms" target="_blank" class="btn">
-      <img src="logo/sss.jpg" alt="Bookkeeping Logo">SSS
-   </a>
-
-   <a href="https://www.pagibigfund.gov.ph/member_membership.html/" target="_blank" class="btn">
-      <img src="logo/pagibig.png" alt="Bookkeeping Logo">Pag Ibig
-   </a>
- 
-   <a href="https://www.philhealth.gov.ph/" target="_blank" class="btn">
-      <img src="logo/philhealth.png" alt="Bookkeeping Logo">Philhealth
-   </a>
-
-
-
-    
-  </div>
-
-  <!-- Bookkeeping and Logout -->
-  <button onclick="window.location.href='bookkeeping.html'" style="margin-top:20px;">📘 Open Bookkeeping</button>
-  <button class="logout-btn" onclick="logout()">Logout</button>
-  <!-- In User Dashboard -->
- <!-- <button onclick="resetUserLogs()">🗑 Reset My Logs</button> -->
-  <h3>Activity Log</h3>
-  <ul id="user-activity-log"></ul>
-</div>
-
-<!-- Admin Dashboard -->
-<div id="admin-dashboard" class="dashboard">
-  <h2>Admin Panel</h2>
-  <button class="logout-btn" onclick="logout()">Logout</button>
- <button id="reset-logs-btn">🗑 Reset All Logs</button>
-  <h3>Active Users</h3>
-  <div class="table-container">
-    <table id="active-users-table">
-      <tr><th>Username</th><th>Last Login</th><th>Status</th></tr>
-    </table>
-  </div>
-
-  <h3>Login Logs</h3>
-  <div class="table-container">
-    <table id="logs-table">
-      <tr><th>Username</th><th>Status</th><th>Time</th></tr>
-    </table>
-  </div>
-
-  <h3>Manage Users</h3>
-  <input id="new-username" placeholder="Username">
-  <input id="new-password" type="password" placeholder="Password">
-  <select id="new-role">
-    <option value="user">User</option>
-    <option value="admin">Admin</option>
-  </select>
-  <button onclick="addUser()">Add User</button>
-
-  <div class="table-container">
-    <table id="users-table">
-      <tr><th>Username</th><th>Role</th><th>Status</th><th>Actions</th></tr>
-    </table>
-  </div>
-</div>
-
-
-<!-- Floating Promo Banner -->
-<div class="promo-banner" id="promoBanner">
-  <div class="promo-content">
-    <img src="house.jpg" alt=" " class="promo-img">
-    <div class="promo-text">
-      <h2>🏡 DV Ralph Consultancy Services!</h2>
-      <p>
-        ✅Free Consultation Today! <br>
-        ✅Fast processing.. <br>
-        ⏳ Hurry Limited Offer only!
-      </p>
-      <a href="inquiryform.html" class="promo-btn">📩 Inquire Now</a>
     </div>
-    <span class="promo-close" onclick="document.getElementById('promoBanner').style.display='none'">❌</span>
-  </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+
+        <h2>Profile</h2>
+        <p>
+        Experienced SAP transaction processor specializing in intercompany transactions and shipping coordination.
+        Proficient in order processing, shipment ETA monitoring, inventory reporting, stakeholder coordination,
+        product transfer management, shipping documentation, and regulatory compliance.
+        </p>
+
+        <h2>Objective</h2>
+        <p>
+        Driven and dedicated aspiring real estate agent passionate about helping clients achieve their property goals.
+        Committed to delivering professional service, strong communication, and attention to detail throughout every transaction.
+        </p>
+
+        <h2>Work Experience</h2>
+
+        <div class="job">
+            <div class="job-title">Real Estate Agent - Omniland Real Estate Brokers</div>
+            <div class="date">2025 - Present</div>
+            <ul>
+                <li>Assisted clients in buying, selling, and leasing properties.</li>
+                <li>Conducted property viewings and consultations.</li>
+                <li>Negotiated pricing and contract terms.</li>
+                <li>Managed documentation and closing processes.</li>
+                <li>Promoted listings using digital marketing strategies.</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-title">Customer Service / Logistics Coordinator - Saudi Chevron Phillips / AYTB CO.</div>
+            <div class="date">2008 - 2024</div>
+            <ul>
+                <li>Handled SAP intercompany transactions and invoicing.</li>
+                <li>Coordinated ship loading with terminals, vessels, and customs.</li>
+                <li>Managed import/export permits and compliance.</li>
+                <li>Prepared shipping reports and inventory summaries.</li>
+                <li>Maintained shipment and transfer documentation records.</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-title">E-commerce Business Owner (Dropshipping)</div>
+            <div class="date">2020 - 2023</div>
+            <ul>
+                <li>Launched and managed dropshipping website.</li>
+                <li>Handled supplier coordination and order fulfillment.</li>
+                <li>Managed digital marketing campaigns and SEO.</li>
+                <li>Analyzed sales trends to improve profitability.</li>
+            </ul>
+        </div>
+
+        <h2>References</h2>
+        <div class="reference">
+            <p><strong>Fahad Al-Yahya</strong><br>
+            General Manager - Saudi Chevron Phillips<br>
+            Phone: +966 500788641<br>
+            Email: fmyahya@saudichevron.com</p>
+
+            <p><strong>Jessica Joyce Valeros</strong><br>
+            Dental SPA Coordinator - Dental SPA Sanford<br>
+            Phone: +63 9185266584<br>
+            Email: jjvaleros17@gmail.com</p>
+        </div>
+
+    </div>
 </div>
 
-
-
-<script src="script.js"></script>
 </body>
 </html>
